@@ -1,0 +1,13 @@
+name: dynamo
+version: 0.0.1
+description: JSON serialization for object graphs
+environment:
+  sdk: '>=1.0.0 <2.0.0'
+dependencies:
+  source_gen: ^0.5.3
+  logging: any
+  build: '>=0.2.1 <0.7.0'
+dev_dependencies:
+  build_runner: ^0.1.0
+  build_test: ^0.3.0
+  test: any
