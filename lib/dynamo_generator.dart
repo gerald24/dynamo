@@ -60,7 +60,10 @@ class DynamoMixinGenerator extends GeneratorForAnnotation<DynamoSerializable> {
 
   _createFieldDeclarations(Map<String, FieldElement> fields) {
     var buffer = new StringBuffer();
-    fields.forEach((name, element) => buffer.writeln("  ${element.type.displayName} ${element.name};"));
+    fields.forEach((name, element) {
+      buffer.writeln("  ${element.type.displayName} get ${element.name};");
+      buffer.writeln("  set ${element.name}(${element.type.displayName} value);");
+    });
     return buffer;
   }
 
@@ -93,16 +96,24 @@ class DynamoMixinGenerator extends GeneratorForAnnotation<DynamoSerializable> {
           factory = getFactory(tpe, decodingSupportVar);
         }
       }
-      return "${decodingSupportVar}.decodeList(${mapAccess}${factory})";
+      return "${decodingSupportVar}.decodeList(${mapAccess}${factory}) as ${element.type.displayName}";
     }
     if (_isDartMap(element.type)) {
-      return "${decodingSupportVar}.decodeMap(${mapAccess})";
+      return "${decodingSupportVar}.decodeMap(${mapAccess})${_castIfNeeded(element)}";
     }
     if (_isDynamoSupported(element.type)) {
-      return "${decodingSupportVar}.decodeSupported(${mapAccess}${getFactory(element.type, decodingSupportVar)})";
+      return "${decodingSupportVar}.decodeSupported(${mapAccess}${getFactory(element.type, decodingSupportVar)})${_castIfNeeded(element)}";
     }
 
     return mapAccess;
+  }
+
+  _castIfNeeded(FieldElement element) {
+    if (element.type is ParameterizedType) {
+      return " as ${element.type.displayName}";
+    } else {
+      return "";
+    }
   }
 
   String getFactory(DartType type, String decodingSupportVar) {

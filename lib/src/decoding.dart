@@ -36,7 +36,7 @@ class _Decoder extends DynamoDecodingSupport {
   }
 
   @override
-  T decodeSupported<T extends DynamoSerializable>(dynamic value, {Object factory()}) {
+  dynamic decodeSupported(dynamic value, {Object factory()}) {
     if (value == null) {
       return null;
     }

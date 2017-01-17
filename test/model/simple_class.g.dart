@@ -8,16 +8,26 @@ part of dynamo.test.model.simple;
 // **************************************************************************
 
 abstract class _$SimpleClassDynamoMixin implements DynamoProtocol<SimpleClass> {
-  String name;
-  bool matter;
-  num number;
-  int intNumber;
-  double doubleNumber;
-  DateTime createdAt;
-  List list;
-  Map map;
-  SimpleClass child;
-  String renamed;
+  String get name;
+  set name(String value);
+  bool get matter;
+  set matter(bool value);
+  num get number;
+  set number(num value);
+  int get intNumber;
+  set intNumber(int value);
+  double get doubleNumber;
+  set doubleNumber(double value);
+  DateTime get createdAt;
+  set createdAt(DateTime value);
+  List get list;
+  set list(List value);
+  Map get map;
+  set map(Map value);
+  SimpleClass get child;
+  set child(SimpleClass value);
+  String get renamed;
+  set renamed(String value);
 
   Map<String, dynamic> asJsonSerializableMap(
       DynamoEncodingSupport _$dynamoEncodingSupport) {
@@ -46,10 +56,10 @@ abstract class _$SimpleClassDynamoMixin implements DynamoProtocol<SimpleClass> {
     this.doubleNumber = _$jsonMap[r'doubleNumber'];
     this.createdAt =
         _$dynamoDecodingSupport.decodeDateTime(_$jsonMap[r'createdAt']);
-    this.list = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'list']);
-    this.map = _$dynamoDecodingSupport.decodeMap(_$jsonMap[r'map']);
+    this.list = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'list']) as List;
+    this.map = _$dynamoDecodingSupport.decodeMap(_$jsonMap[r'map']) as Map;
     this.child = _$dynamoDecodingSupport.decodeSupported(_$jsonMap[r'child'],
-        factory: () => new SimpleClass());
+        factory: () => new SimpleClass()) as SimpleClass;
     this.renamed = _$jsonMap[r'the_renamed'];
   }
 }

@@ -18,11 +18,11 @@ typedef T InstanceFactory<T>();
 
 abstract class Dynamo {
 
-  void registerType<T>(String identifier, Type/*=T*/ type, InstanceFactory<T> factory);
-  void addTransformer<T>(TypeTransformer<T> transformer);
+  void registerType(String identifier, Type type, InstanceFactory factory);
+  void addTransformer(TypeTransformer transformer);
 
   String toJson(dynamic value);
-  dynamic fromJson<T>(String json, {InstanceFactory<T> factory});
+  dynamic fromJson(String json, {InstanceFactory factory});
 
   String get typeKey;
   String get instanceIdKey;

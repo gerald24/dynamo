@@ -51,7 +51,7 @@ class _Encoder extends DynamoEncodingSupport {
     return value?.toUtc()?.toIso8601String();
   }
 
-  dynamic _encodeSupported<T extends DynamoProtocol>(DynamoProtocol<T> instance) {
+  dynamic _encodeSupported(DynamoProtocol instance) {
     if (instance == null) {
       return null;
     }

@@ -9,8 +9,10 @@ part of dynamo.test.model.circular;
 
 abstract class _$PersonRepositoryDynamoMixin
     implements DynamoProtocol<PersonRepository> {
-  List<Person> persons;
-  List<Tag> tags;
+  List<Person> get persons;
+  set persons(List<Person> value);
+  List<Tag> get tags;
+  set tags(List<Tag> value);
 
   Map<String, dynamic> asJsonSerializableMap(
       DynamoEncodingSupport _$dynamoEncodingSupport) {
@@ -24,9 +26,9 @@ abstract class _$PersonRepositoryDynamoMixin
   void fromJsonSerializableMap(Map<String, dynamic> _$jsonMap,
       DynamoDecodingSupport _$dynamoDecodingSupport) {
     this.persons = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'persons'],
-        factory: () => new Person());
+        factory: () => new Person()) as List<Person>;
     this.tags = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'tags'],
-        factory: () => new Tag());
+        factory: () => new Tag()) as List<Tag>;
   }
 }
 
@@ -36,9 +38,12 @@ abstract class _$PersonRepositoryDynamoMixin
 // **************************************************************************
 
 abstract class _$PersonDynamoMixin implements DynamoProtocol<Person> {
-  int id;
-  String name;
-  Person parent;
+  int get id;
+  set id(int value);
+  String get name;
+  set name(String value);
+  Person get parent;
+  set parent(Person value);
 
   Map<String, dynamic> asJsonSerializableMap(
       DynamoEncodingSupport _$dynamoEncodingSupport) {
@@ -55,7 +60,7 @@ abstract class _$PersonDynamoMixin implements DynamoProtocol<Person> {
     this.id = _$jsonMap[r'id'];
     this.name = _$jsonMap[r'name'];
     this.parent = _$dynamoDecodingSupport.decodeSupported(_$jsonMap[r'parent'],
-        factory: () => new Person());
+        factory: () => new Person()) as Person;
   }
 }
 
@@ -65,9 +70,12 @@ abstract class _$PersonDynamoMixin implements DynamoProtocol<Person> {
 // **************************************************************************
 
 abstract class _$TagDynamoMixin implements DynamoProtocol<Tag> {
-  int id;
-  String name;
-  List<Person> persons;
+  int get id;
+  set id(int value);
+  String get name;
+  set name(String value);
+  List<Person> get persons;
+  set persons(List<Person> value);
 
   Map<String, dynamic> asJsonSerializableMap(
       DynamoEncodingSupport _$dynamoEncodingSupport) {
@@ -84,6 +92,6 @@ abstract class _$TagDynamoMixin implements DynamoProtocol<Tag> {
     this.id = _$jsonMap[r'id'];
     this.name = _$jsonMap[r'name'];
     this.persons = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'persons'],
-        factory: () => new Person());
+        factory: () => new Person()) as List<Person>;
   }
 }

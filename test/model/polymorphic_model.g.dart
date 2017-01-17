@@ -8,7 +8,8 @@ part of dynamo.test.model.polymorphic;
 // **************************************************************************
 
 abstract class _$CompanyDynamoMixin implements DynamoProtocol<Company> {
-  List<Employee> employees;
+  List<Employee> get employees;
+  set employees(List<Employee> value);
 
   Map<String, dynamic> asJsonSerializableMap(
       DynamoEncodingSupport _$dynamoEncodingSupport) {
@@ -21,7 +22,7 @@ abstract class _$CompanyDynamoMixin implements DynamoProtocol<Company> {
   void fromJsonSerializableMap(Map<String, dynamic> _$jsonMap,
       DynamoDecodingSupport _$dynamoDecodingSupport) {
     this.employees = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'employees'],
-        factory: () => new Employee());
+        factory: () => new Employee()) as List<Employee>;
   }
 }
 
@@ -31,7 +32,8 @@ abstract class _$CompanyDynamoMixin implements DynamoProtocol<Company> {
 // **************************************************************************
 
 abstract class _$EmployeeDynamoMixin implements DynamoProtocol<Employee> {
-  String name;
+  String get name;
+  set name(String value);
 
   Map<String, dynamic> asJsonSerializableMap(
       DynamoEncodingSupport _$dynamoEncodingSupport) {
@@ -53,7 +55,8 @@ abstract class _$EmployeeDynamoMixin implements DynamoProtocol<Employee> {
 // **************************************************************************
 
 abstract class _$ManagerDynamoMixin implements DynamoProtocol<Manager> {
-  List<Employee> team;
+  List<Employee> get team;
+  set team(List<Employee> value);
 
   Map<String, dynamic> asJsonSerializableMap(
       DynamoEncodingSupport _$dynamoEncodingSupport) {
@@ -67,6 +70,6 @@ abstract class _$ManagerDynamoMixin implements DynamoProtocol<Manager> {
       DynamoDecodingSupport _$dynamoDecodingSupport) {
     super.fromJsonSerializableMap(_$jsonMap, _$dynamoDecodingSupport);
     this.team = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'team'],
-        factory: () => new Employee());
+        factory: () => new Employee()) as List<Employee>;
   }
 }

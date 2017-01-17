@@ -28,7 +28,7 @@ abstract class DynamoDecodingSupport {
 
   DateTime decodeDateTime(dynamic value);
 
-  T decodeSupported<T extends DynamoSerializable>(dynamic value, {Object factory()});
+  dynamic decodeSupported(dynamic value, {Object factory()});
 
   throwAbstractClassError();
 }

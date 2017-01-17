@@ -11,12 +11,12 @@ class _DynamoImpl implements Dynamo {
     _context.log.fine('Initiate Dynamo.');
   }
 
-  void addTransformer<T>(TypeTransformer<T> transformer) {
+  void addTransformer(TypeTransformer transformer) {
     _context.transformers.add(transformer);
     _context.log.fine('Transformer ${transformer} added');
   }
 
-  void registerType<T>(String identifier, Type/*=T*/ type, InstanceFactory<T> factory) {
+  void registerType(String identifier, Type type, InstanceFactory factory) {
     _context.types[identifier] = type;
     _context.factories[identifier] = factory;
     _context.log.fine('Type ${type} registered with identifier ${identifier}');
