@@ -1,5 +1,5 @@
 name: dynamo
-version: 0.0.2
+version: 0.0.3
 description: JSON serialization for object graphs
 author: Gerald Leeb <gerald@g-24.net>
 homepage: https://github.com/gerald24/dynamo

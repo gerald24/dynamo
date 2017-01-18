@@ -191,15 +191,29 @@ ${assignFromJsonMap}
   Map<String, FieldElement> _allFieldsNeedToBeAssigned(ClassElement classElement) {
     Map<String, FieldElement> fields = {};
     classElement.fields.forEach((element) {
-      var entry = element.metadata.firstWhere((m) => matchAnnotation(DynamoEntry, m),
-          orElse: () => null);
-      DartObject ignoreValue = entry == null ? null : entry.constantValue.getField('ignore');
-      var accepted = ignoreValue == null || ignoreValue.isNull || !ignoreValue.toBoolValue();
-      if (accepted) {
-        DartObject newName = entry == null ? null : entry.constantValue.getField('name');
-        var jsonKey = newName == null || newName.isNull ? element.name : newName.toStringValue();
-        fields[jsonKey] = element;
+      if (element.getter == null) {
+        print("field ${element.displayName} has no getter - not serializable.");// TODO use log instead
+        return;
       }
+      if (element.setter == null) {
+        print("field ${element.displayName} has no setter - not serializable.");// TODO use log instead
+        return;
+      }
+      var entry = element.metadata.firstWhere((m) => matchAnnotation(DynamoEntry, m), orElse: () => null);
+      if (entry == null) {
+        entry = element.getter.metadata.firstWhere((m) => matchAnnotation(DynamoEntry, m), orElse: () => null);
+      }
+      DartObject ignoreValue = entry == null ? null : entry.constantValue.getField('ignore');
+      bool accepted = ignoreValue == null || ignoreValue.isNull || !ignoreValue.toBoolValue();
+
+      if (!accepted) {
+        print("field ${element.displayName} marked as ignored.");// TODO use log instead
+        return;
+      }
+
+      DartObject newName = entry == null ? null : entry.constantValue.getField('name');
+      var jsonKey = newName == null || newName.isNull ? element.name : newName.toStringValue();
+      fields[jsonKey] = element;
     });
 
     return fields;
