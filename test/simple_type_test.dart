@@ -67,12 +67,12 @@ void main() {
     Dynamo support = new Dynamo();
     support.addTransformer(new DateTimeTransformer('_iso8601_'));
 
-    DateTime value = new DateTime(2016, 12, 24, 13, 59, 33);
+    DateTime value = new DateTime.utc(2016, 12, 24, 12, 59, 33);
     String json = support.toJson(value);
     expect(json, '{"_iso8601_":"2016-12-24T12:59:33.000Z"}');
 
     DateTime decoded = support.fromJson(json);
-    expect(decoded, new DateTime(2016, 12, 24, 13, 59, 33).toUtc());
+    expect(decoded, new DateTime.utc(2016, 12, 24, 12, 59, 33));
   });
 
   test('serialize: List', () {
