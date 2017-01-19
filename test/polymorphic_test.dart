@@ -12,8 +12,8 @@ void main() {
   group('serialize inheritance', () {
     Dynamo support = new Dynamo();
     support.registerType("employee", Employee, () => new Employee());
-    support.registerType("mananger", Manager, () => new Manager());
-    const json = '{"employees":[{"_isa_":"employee","name":"Tim","_id#_":1},{"_isa_":"employee","name":"Tom","_id#_":2},{"_isa_":"mananger","name":"Bob","team":[{"_ref_":1},{"_ref_":2}]}]}';
+    support.registerType("manager", Manager, () => new Manager());
+    const json = '{"employees":[{"_isa_":"employee","name":"Tim","_id#_":1},{"_isa_":"employee","name":"Tom","_id#_":2},{"_isa_":"manager","name":"Bob","team":[{"_ref_":1},{"_ref_":2}]}]}';
 
     test('encode', () {
       var e1 = new Employee()
