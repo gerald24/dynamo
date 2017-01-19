@@ -68,7 +68,7 @@ void main() {
       instance.number = 5;
       instance.intNumber = 2;
       instance.doubleNumber = 2.11;
-      instance.createdAt = new DateTime(2016, 12, 24, 18, 59, 44);
+      instance.createdAt = new DateTime.utc(2016, 12, 24, 17, 59, 44);
       instance.list = [2, 4];
       instance.map = {"oo": "kk"};
       instance.renamed = "test";
@@ -85,7 +85,7 @@ void main() {
       expect(decoded.number, 5);
       expect(decoded.intNumber, 2);
       expect(decoded.doubleNumber, 2.11);
-      expect(decoded.createdAt, new DateTime(2016, 12, 24, 18, 59, 44).toUtc());
+      expect(decoded.createdAt, new DateTime.utc(2016, 12, 24, 17, 59, 44));
       expect(decoded.list.length, 2);
       expect(decoded.list[0], 2);
       expect(decoded.list[1], 4);
