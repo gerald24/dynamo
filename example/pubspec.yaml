@@ -1,0 +1,12 @@
+name: dynamo_example
+description: Dynamo Example Model
+version: 0.0.1
+environment:
+  sdk: '>=1.19.0 <2.0.0'
+dependencies:
+  dynamo:
+    path: ..
+dev_dependencies:
+  source_gen: ">=0.5.3"
+  build_runner: ^0.1.0
+  test: any

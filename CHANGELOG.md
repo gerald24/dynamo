@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.4 2017-01-19
+
+- example added
+
 ## 0.0.3 2017-01-18
 
 - fixes field annotation handling
