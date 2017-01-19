@@ -10,7 +10,7 @@ It has no dependency to the 'dart:mirror'.
 If you need just simple JSON serialization you might use JsonSerializable from [source_gen](https://pub.dartlang.org/packages/source_gen) instead,
  or [Dartson](https://pub.dartlang.org/packages/dartson). Latter uses code transformers.
 
-Dyname is rewritten from scratch, but influenced from [Dartson](https://pub.dartlang.org/packages/dartson) ([dartson on github](https://github.com/eredo/dartson)),
+Dynamo is rewritten from scratch, but influenced from [Dartson](https://pub.dartlang.org/packages/dartson) ([dartson on github](https://github.com/eredo/dartson)),
  with some [some extensions to Dartson](https://github.com/gerald24/dartson).
   
 
