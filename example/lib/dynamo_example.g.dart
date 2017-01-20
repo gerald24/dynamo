@@ -10,34 +10,16 @@ part of dynamo_example;
 abstract class _$MemberDynamoMixin implements DynamoProtocol<Member> {
   int get id;
   set id(int value);
-  String get title;
-  set title(String value);
   String get firstName;
   set firstName(String value);
   String get lastName;
   set lastName(String value);
-  String get birthday;
-  set birthday(String value);
-  String get email;
-  set email(String value);
-  String get phoneNumber;
-  set phoneNumber(String value);
-  String get street;
-  set street(String value);
-  String get city;
-  set city(String value);
-  String get postalCode;
-  set postalCode(String value);
-  String get country;
-  set country(String value);
+  DateTime get registered;
+  set registered(DateTime value);
   MemberType get type;
   set type(MemberType value);
-  String get notes;
-  set notes(String value);
   bool get active;
   set active(bool value);
-  bool get registrationFeePaid;
-  set registrationFeePaid(bool value);
   List<Tag> get tags;
   set tags(List<Tag> value);
 
@@ -45,22 +27,11 @@ abstract class _$MemberDynamoMixin implements DynamoProtocol<Member> {
       DynamoEncodingSupport _$dynamoEncodingSupport) {
     var _$jsonMap = _$dynamoEncodingSupport.newJsonSerializableMap(this);
     _$dynamoEncodingSupport.addValue(_$jsonMap, r'id', this.id);
-    _$dynamoEncodingSupport.addValue(_$jsonMap, r'title', this.title);
     _$dynamoEncodingSupport.addValue(_$jsonMap, r'firstName', this.firstName);
-    _$dynamoEncodingSupport.addValue(_$jsonMap, r'lastName', this.lastName);
-    _$dynamoEncodingSupport.addValue(_$jsonMap, r'birthday', this.birthday);
-    _$dynamoEncodingSupport.addValue(_$jsonMap, r'email', this.email);
-    _$dynamoEncodingSupport.addValue(
-        _$jsonMap, r'phoneNumber', this.phoneNumber);
-    _$dynamoEncodingSupport.addValue(_$jsonMap, r'street', this.street);
-    _$dynamoEncodingSupport.addValue(_$jsonMap, r'city', this.city);
-    _$dynamoEncodingSupport.addValue(_$jsonMap, r'postalCode', this.postalCode);
-    _$dynamoEncodingSupport.addValue(_$jsonMap, r'country', this.country);
+    _$dynamoEncodingSupport.addValue(_$jsonMap, r'last_name', this.lastName);
+    _$dynamoEncodingSupport.addValue(_$jsonMap, r'registered', this.registered);
     _$dynamoEncodingSupport.addValue(_$jsonMap, r'type', this.type);
-    _$dynamoEncodingSupport.addValue(_$jsonMap, r'notes', this.notes);
     _$dynamoEncodingSupport.addValue(_$jsonMap, r'active', this.active);
-    _$dynamoEncodingSupport.addValue(
-        _$jsonMap, r'registrationFeePaid', this.registrationFeePaid);
     _$dynamoEncodingSupport.addValue(_$jsonMap, r'tags', this.tags);
 
     return _$jsonMap;
@@ -69,20 +40,12 @@ abstract class _$MemberDynamoMixin implements DynamoProtocol<Member> {
   void fromJsonSerializableMap(Map<String, dynamic> _$jsonMap,
       DynamoDecodingSupport _$dynamoDecodingSupport) {
     this.id = _$jsonMap[r'id'];
-    this.title = _$jsonMap[r'title'];
     this.firstName = _$jsonMap[r'firstName'];
-    this.lastName = _$jsonMap[r'lastName'];
-    this.birthday = _$jsonMap[r'birthday'];
-    this.email = _$jsonMap[r'email'];
-    this.phoneNumber = _$jsonMap[r'phoneNumber'];
-    this.street = _$jsonMap[r'street'];
-    this.city = _$jsonMap[r'city'];
-    this.postalCode = _$jsonMap[r'postalCode'];
-    this.country = _$jsonMap[r'country'];
+    this.lastName = _$jsonMap[r'last_name'];
+    this.registered =
+        _$dynamoDecodingSupport.decodeDateTime(_$jsonMap[r'registered']);
     this.type = _$jsonMap[r'type'];
-    this.notes = _$jsonMap[r'notes'];
     this.active = _$jsonMap[r'active'];
-    this.registrationFeePaid = _$jsonMap[r'registrationFeePaid'];
     this.tags = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'tags'],
         factory: () => new Tag()) as List<Tag>;
   }

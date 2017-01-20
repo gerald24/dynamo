@@ -32,7 +32,14 @@ class _Decoder extends DynamoDecodingSupport {
 
   @override
   DateTime decodeDateTime(value) {
-    return value == null ? null : DateTime.parse(value);
+    if (value == null) {
+      return null;
+    }
+    var transformer = _context.transformers.firstWhere((transformer) => transformer.canDecode(value), orElse: () => null);
+    if (transformer != null) {
+      return transformer.decode(value);
+    }
+    return DateTime.parse(value);
   }
 
   @override

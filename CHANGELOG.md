@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.0 2017-01-20
+
+- docu added, example improved
+
 ## 0.0.4 2017-01-19
 
 - example added

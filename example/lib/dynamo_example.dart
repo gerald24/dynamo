@@ -6,8 +6,6 @@ import 'package:dynamo/dynamo.dart';
 
 part 'dynamo_example.g.dart'; // generated
 
-part 'model/common.dart';
-
 part 'model/domain/member.dart';
 part 'model/domain/tag.dart';
 
@@ -18,6 +16,13 @@ part 'model/message/queries.dart';
 
 final defaultDynamo = createCommonDynamo(JSON);
 final defaultTransactionDynamo = createTransactionDynamo(JSON);
+final prettyDynamo = createCommonDynamo(new PrettyJsonCodec());
+
+class PrettyJsonCodec extends JsonCodec {
+  JsonEncoder get encoder {
+    return const JsonEncoder.withIndent('  ');
+  }
+}
 
 Dynamo createCommonDynamo(JsonCodec json) {
   return new Dynamo(codec: json)
