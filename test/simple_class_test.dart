@@ -101,10 +101,8 @@ void main() {
       var originalJson = support.toJson(original);
       expect(originalJson, '{"child":{"name":"child"}}');
 
-      var decode = support.fromJson(originalJson, factory: () => new SimpleClass());
-      expect(decode is SimpleClass, isTrue);
-      expect(decode.child is SimpleClass, isTrue);
-      expect(decode.child.name, 'child');
+      expect(support.fromJson(originalJson) is Map, isTrue);
+      expect(() => support.fromJson(originalJson, factory: () => new SimpleClass()), throws);
     });
   });
 

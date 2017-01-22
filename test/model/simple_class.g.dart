@@ -58,8 +58,8 @@ abstract class _$SimpleClassDynamoMixin implements DynamoProtocol<SimpleClass> {
         _$dynamoDecodingSupport.decodeDateTime(_$jsonMap[r'createdAt']);
     this.list = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'list']) as List;
     this.map = _$dynamoDecodingSupport.decodeMap(_$jsonMap[r'map']) as Map;
-    this.child = _$dynamoDecodingSupport.decodeSupported(_$jsonMap[r'child'],
-        factory: () => new SimpleClass()) as SimpleClass;
+    this.child = _$dynamoDecodingSupport.decodeDynamic(_$jsonMap[r'child'])
+        as SimpleClass;
     this.renamed = _$jsonMap[r'the_renamed'];
   }
 }

@@ -44,7 +44,8 @@ abstract class _$MemberDynamoMixin implements DynamoProtocol<Member> {
     this.lastName = _$jsonMap[r'last_name'];
     this.registered =
         _$dynamoDecodingSupport.decodeDateTime(_$jsonMap[r'registered']);
-    this.type = _$jsonMap[r'type'];
+    this.type =
+        _$dynamoDecodingSupport.decodeDynamic(_$jsonMap[r'type']) as MemberType;
     this.active = _$jsonMap[r'active'];
     this.tags = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'tags'],
         factory: () => new Tag()) as List<Tag>;

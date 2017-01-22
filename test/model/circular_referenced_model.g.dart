@@ -59,8 +59,8 @@ abstract class _$PersonDynamoMixin implements DynamoProtocol<Person> {
       DynamoDecodingSupport _$dynamoDecodingSupport) {
     this.id = _$jsonMap[r'id'];
     this.name = _$jsonMap[r'name'];
-    this.parent = _$dynamoDecodingSupport.decodeSupported(_$jsonMap[r'parent'],
-        factory: () => new Person()) as Person;
+    this.parent =
+        _$dynamoDecodingSupport.decodeDynamic(_$jsonMap[r'parent']) as Person;
   }
 }
 

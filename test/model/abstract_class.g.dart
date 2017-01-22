@@ -59,8 +59,7 @@ abstract class _$AbstractClassDynamoMixin
         _$dynamoDecodingSupport.decodeDateTime(_$jsonMap[r'createdAt']);
     this.list = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'list']) as List;
     this.map = _$dynamoDecodingSupport.decodeMap(_$jsonMap[r'map']) as Map;
-    this.child = _$dynamoDecodingSupport.decodeSupported(_$jsonMap[r'child'],
-            factory: () => _$dynamoDecodingSupport.throwAbstractClassError())
+    this.child = _$dynamoDecodingSupport.decodeDynamic(_$jsonMap[r'child'])
         as AbstractClass;
     this.renamed = _$jsonMap[r'the_renamed'];
   }

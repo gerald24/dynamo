@@ -52,11 +52,7 @@ class _DynamoImpl implements Dynamo {
   dynamic fromJson(String json, {Object factory()}) {
     _context.log.finest('decode ${json}');
     var decoder = new _Decoder(new _DecodingReferenceMapper(_context), _context);
-    if (factory == null) {
-      return decoder._decodeDynamic(_codec.decode(json));
-    } else {
-      return decoder.decodeSupported(_codec.decode(json), factory: factory);
-    }
+    return decoder.decodeDynamic(_codec.decode(json), factory: factory);
   }
 }
 

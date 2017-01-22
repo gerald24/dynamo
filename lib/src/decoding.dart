@@ -15,7 +15,7 @@ class _Decoder extends DynamoDecodingSupport {
     if (value == null) {
       return null;
     }
-    return value.map((i) => _decodeDynamic(i, factory: factory)).toList();
+    return value.map((i) => decodeDynamic(i, factory: factory)).toList();
   }
 
   @override
@@ -25,7 +25,7 @@ class _Decoder extends DynamoDecodingSupport {
     }
     Map newMap = new Map<String, Object>();
     value.forEach((key, val) {
-      if (val != null) newMap[key] = _decodeDynamic(val, factory: factory);
+      if (val != null) newMap[key] = decodeDynamic(val, factory: factory);
     });
     return newMap;
   }
@@ -73,7 +73,7 @@ class _Decoder extends DynamoDecodingSupport {
     throw 'Can not decode ${value} into ${target}.';
   }
 
-  _decodeDynamic(dynamic value, {Object factory()}) {
+  dynamic decodeDynamic(dynamic value, {Object factory()}) {
     if (value == null) {
       return null;
     }

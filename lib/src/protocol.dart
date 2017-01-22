@@ -30,5 +30,7 @@ abstract class DynamoDecodingSupport {
 
   dynamic decodeSupported(dynamic value, {Object factory()});
 
+  dynamic decodeDynamic(dynamic value, {Object factory()});
+
   throwAbstractClassError();
 }

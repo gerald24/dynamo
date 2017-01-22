@@ -8,6 +8,7 @@
 library dynamo.generator;
 
 import 'dart:async';
+import 'dart:mirrors';
 
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
@@ -101,12 +102,19 @@ class DynamoMixinGenerator extends GeneratorForAnnotation<DynamoSerializable> {
     if (_isDartMap(element.type)) {
       return "${decodingSupportVar}.decodeMap(${mapAccess})${_castIfNeeded(element)}";
     }
-    if (_isDynamoSupported(element.type)) {
-      return "${decodingSupportVar}.decodeSupported(${mapAccess}${getFactory(element.type, decodingSupportVar)})${_castIfNeeded(element)}";
+
+    if (_isSimpleType(element.type)) {
+      return mapAccess;
     }
 
-    return mapAccess;
+    return "${decodingSupportVar}.decodeDynamic(${mapAccess})${_castIfNeeded(element)}";
   }
+
+  bool _isSimpleType(DartType type) =>
+        type.element.library != null &&
+            type.element.library.isDartCore &&
+            ['bool','String','num','int','double','float'].contains(type.name);
+
 
   _castIfNeeded(FieldElement element) {
     if (element.type is ParameterizedType) {
@@ -138,10 +146,22 @@ class DynamoMixinGenerator extends GeneratorForAnnotation<DynamoSerializable> {
           type.name == 'DateTime'; // TODO support list of datetime
 
   bool _isDynamoSupported(DartType type)  {
-    return  type.element.metadata.any((m) =>
-        matchAnnotation(DynamoSerializable, m));
-  }
+    print("_isDynamoSupported ${type}");
 
+    return  type.element.metadata.any((m) {
+      var annotationValueType = m.constantValue?.type;
+      if (annotationValueType != null) {
+        return matchAnnotation(DynamoSerializable, m);
+      }
+      var classMirror = reflectClass(DynamoSerializable);
+      var classMirrorSymbol = classMirror.simpleName;
+
+      var compilationUnitName = (m.element.enclosingElement as ClassElement).type.name;
+      var compilationUnitNameSymbol = new Symbol(compilationUnitName);
+
+      return classMirrorSymbol == compilationUnitNameSymbol;
+    });
+  }
 
   String _mixinDeclaration(String className, bool isRoot, String jsonMapVar, String encodingSupportVar, String decodingSupportVar,
       fieldsDeclarations, assignToJsonMap, assignFromJsonMap) {
