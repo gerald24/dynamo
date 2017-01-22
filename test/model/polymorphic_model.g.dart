@@ -21,8 +21,8 @@ abstract class _$CompanyDynamoMixin implements DynamoProtocol<Company> {
 
   void fromJsonSerializableMap(Map<String, dynamic> _$jsonMap,
       DynamoDecodingSupport _$dynamoDecodingSupport) {
-    this.employees = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'employees'],
-        factory: () => new Employee()) as List<Employee>;
+    this.employees = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'employees'])
+        as List<Employee>;
   }
 }
 
@@ -69,7 +69,7 @@ abstract class _$ManagerDynamoMixin implements DynamoProtocol<Manager> {
   void fromJsonSerializableMap(Map<String, dynamic> _$jsonMap,
       DynamoDecodingSupport _$dynamoDecodingSupport) {
     super.fromJsonSerializableMap(_$jsonMap, _$dynamoDecodingSupport);
-    this.team = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'team'],
-        factory: () => new Employee()) as List<Employee>;
+    this.team = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'team'])
+        as List<Employee>;
   }
 }

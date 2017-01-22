@@ -22,15 +22,15 @@ abstract class DynamoEncodingSupport {
 
 abstract class DynamoDecodingSupport {
 
-  List decodeList(dynamic value, {Object factory()});
+  List decodeList(dynamic value);
 
-  Map decodeMap(dynamic value, {Object factory()});
+  Map decodeMap(dynamic value);
 
   DateTime decodeDateTime(dynamic value);
 
-  dynamic decodeSupported(dynamic value, {Object factory()});
+  dynamic decodeSupported(dynamic value);
 
-  dynamic decodeDynamic(dynamic value, {Object factory()});
+  dynamic decodeDynamic(dynamic value);
 
   throwAbstractClassError();
 }

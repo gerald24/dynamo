@@ -47,8 +47,8 @@ abstract class _$MemberDynamoMixin implements DynamoProtocol<Member> {
     this.type =
         _$dynamoDecodingSupport.decodeDynamic(_$jsonMap[r'type']) as MemberType;
     this.active = _$jsonMap[r'active'];
-    this.tags = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'tags'],
-        factory: () => new Tag()) as List<Tag>;
+    this.tags =
+        _$dynamoDecodingSupport.decodeList(_$jsonMap[r'tags']) as List<Tag>;
   }
 }
 
@@ -146,9 +146,9 @@ abstract class _$AllMembersResponseDynamoMixin
   void fromJsonSerializableMap(Map<String, dynamic> _$jsonMap,
       DynamoDecodingSupport _$dynamoDecodingSupport) {
     super.fromJsonSerializableMap(_$jsonMap, _$dynamoDecodingSupport);
-    this.tags = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'tags'],
-        factory: () => new Tag()) as List<Tag>;
-    this.members = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'members'],
-        factory: () => new Member()) as List<Member>;
+    this.tags =
+        _$dynamoDecodingSupport.decodeList(_$jsonMap[r'tags']) as List<Tag>;
+    this.members = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'members'])
+        as List<Member>;
   }
 }

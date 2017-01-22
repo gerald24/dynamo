@@ -8,14 +8,15 @@ import 'package:test/test.dart';
 
 import 'model/circular_referenced_model.dart';
 
-const json = '{"_isa_":"PS","persons":[{"_isa_":"Person","id":1,"name":"Yin","_id#_":1,"parent":{"_isa_":"Person","id":2,"name":"Yang","parent":{"_ref_":1},"_id#_":2}},{"_ref_":2},{"_isa_":"Person","id":3,"name":"Noname"}],"tags":[{"id":1,"name":"Test","persons":[{"_ref_":1},{"_ref_":2}]}]}';
+const json = '{"_isa_":"PS","persons":[{"_isa_":"Person","id":1,"name":"Yin","_id#_":1,"parent":{"_isa_":"Person","id":2,"name":"Yang","parent":{"_ref_":1},"_id#_":2}},{"_ref_":2},{"_isa_":"Person","id":3,"name":"Noname"}],"tags":[{"_isa_":"Tag","id":1,"name":"Test","persons":[{"_ref_":1},{"_ref_":2}]}]}';
 
 void main() {
-  test('serialize static: circular references', () {
-    Dynamo support = new Dynamo();
-    support.registerType("PS", PersonRepository, () => new PersonRepository());
-    support.registerType("Person", Person, () => new Person());
+  Dynamo support = new Dynamo();
+  support.registerType("PS", PersonRepository, () => new PersonRepository());
+  support.registerType("Person", Person, () => new Person());
+  support.registerType("Tag", Tag, () => new Tag());
 
+  test('serialize static: circular references', () {
     var p1 = new Person()
       ..id = 1
       ..name = 'Yin';
@@ -43,11 +44,7 @@ void main() {
   });
 
   test('parse static: circular references', () {
-    Dynamo support = new Dynamo();
-    support.registerType("PS", PersonRepository, () => new PersonRepository());
-    support.registerType("Person", Person, () => new Person());
-
-    var store = support.fromJson(json, factory: () => new PersonRepository());
+    var store = support.fromJson(json);
 
     expect(store.persons.length, 3);
     expect(store.tags.length, 1);
@@ -70,10 +67,6 @@ void main() {
   });
 
   test('parse static: decode using identifier', () {
-    Dynamo support = new Dynamo();
-    support.registerType("PS", PersonRepository, () => new PersonRepository());
-    support.registerType("Person", Person, () => new Person());
-
     var store = support.fromJson(json);
 
     expect(store is PersonRepository, true);

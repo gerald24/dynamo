@@ -22,7 +22,7 @@ abstract class Dynamo {
   void addTransformer(TypeTransformer transformer);
 
   String toJson(dynamic value);
-  dynamic fromJson(String json, {InstanceFactory factory});
+  dynamic fromJson(String json);
 
   String get typeKey;
   String get instanceIdKey;

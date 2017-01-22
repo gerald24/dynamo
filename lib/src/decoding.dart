@@ -11,21 +11,21 @@ class _Decoder extends DynamoDecodingSupport {
   _Decoder(this.mapper, this._context);
 
   @override
-  List decodeList(value, {Object factory()}) {
+  List decodeList(value) {
     if (value == null) {
       return null;
     }
-    return value.map((i) => decodeDynamic(i, factory: factory)).toList();
+    return value.map((i) => decodeDynamic(i)).toList();
   }
 
   @override
-  Map decodeMap(value, {Object factory()}) {
+  Map decodeMap(value) {
     if (value == null) {
       return null;
     }
     Map newMap = new Map<String, Object>();
     value.forEach((key, val) {
-      if (val != null) newMap[key] = decodeDynamic(val, factory: factory);
+      if (val != null) newMap[key] = decodeDynamic(val);
     });
     return newMap;
   }
@@ -43,7 +43,7 @@ class _Decoder extends DynamoDecodingSupport {
   }
 
   @override
-  dynamic decodeSupported(dynamic value, {Object factory()}) {
+  dynamic decodeSupported(dynamic value) {
     if (value == null) {
       return null;
     }
@@ -62,8 +62,6 @@ class _Decoder extends DynamoDecodingSupport {
       } else {
         throw 'No factory for ${key}';
       }
-    } else {
-      target = factory();
     }
     if (target is DynamoProtocol) {
       _registerInstanceIfApplicable(target, value);
@@ -73,7 +71,7 @@ class _Decoder extends DynamoDecodingSupport {
     throw 'Can not decode ${value} into ${target}.';
   }
 
-  dynamic decodeDynamic(dynamic value, {Object factory()}) {
+  dynamic decodeDynamic(dynamic value) {
     if (value == null) {
       return null;
     }
@@ -88,17 +86,13 @@ class _Decoder extends DynamoDecodingSupport {
       return value;
     }
     if (value is List) {
-      return decodeList(value, factory: factory);
+      return decodeList(value);
     }
     if (value is Map) {
       if (value[_context.typeKey] == null) {
-        if (factory == null) {
-          return decodeMap(value, factory: factory);
-        } else {
-          return decodeSupported(value, factory: factory);
-        }
+        return decodeMap(value);
       } else {
-        return decodeSupported(value, factory: factory);
+        return decodeSupported(value);
       }
     }
     return value;

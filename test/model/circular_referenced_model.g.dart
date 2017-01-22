@@ -25,10 +25,10 @@ abstract class _$PersonRepositoryDynamoMixin
 
   void fromJsonSerializableMap(Map<String, dynamic> _$jsonMap,
       DynamoDecodingSupport _$dynamoDecodingSupport) {
-    this.persons = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'persons'],
-        factory: () => new Person()) as List<Person>;
-    this.tags = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'tags'],
-        factory: () => new Tag()) as List<Tag>;
+    this.persons = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'persons'])
+        as List<Person>;
+    this.tags =
+        _$dynamoDecodingSupport.decodeList(_$jsonMap[r'tags']) as List<Tag>;
   }
 }
 
@@ -91,7 +91,7 @@ abstract class _$TagDynamoMixin implements DynamoProtocol<Tag> {
       DynamoDecodingSupport _$dynamoDecodingSupport) {
     this.id = _$jsonMap[r'id'];
     this.name = _$jsonMap[r'name'];
-    this.persons = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'persons'],
-        factory: () => new Person()) as List<Person>;
+    this.persons = _$dynamoDecodingSupport.decodeList(_$jsonMap[r'persons'])
+        as List<Person>;
   }
 }

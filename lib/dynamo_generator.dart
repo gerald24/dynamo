@@ -8,7 +8,6 @@
 library dynamo.generator;
 
 import 'dart:async';
-import 'dart:mirrors';
 
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
@@ -88,16 +87,7 @@ class DynamoMixinGenerator extends GeneratorForAnnotation<DynamoSerializable> {
       return "${decodingSupportVar}.decodeDateTime(${mapAccess})";
     }
     if (_isDartList(element.type)) {
-      var factory = r'';
-      if (element.type is ParameterizedType) {
-        DartType tpe = (element.type as ParameterizedType).typeArguments
-            .firstWhere((e) =>
-            _isDynamoSupported(e), orElse: () => null);
-        if (tpe != null) {
-          factory = getFactory(tpe, decodingSupportVar);
-        }
-      }
-      return "${decodingSupportVar}.decodeList(${mapAccess}${factory}) as ${element.type.displayName}";
+      return "${decodingSupportVar}.decodeList(${mapAccess}) as ${element.type.displayName}";
     }
     if (_isDartMap(element.type)) {
       return "${decodingSupportVar}.decodeMap(${mapAccess})${_castIfNeeded(element)}";
@@ -124,12 +114,6 @@ class DynamoMixinGenerator extends GeneratorForAnnotation<DynamoSerializable> {
     }
   }
 
-  String getFactory(DartType type, String decodingSupportVar) {
-    var isAbstract =type != null && type.element is ClassElement && (type.element as ClassElement).isAbstract;
-    var factory = isAbstract ? "${decodingSupportVar}.throwAbstractClassError()" : "new ${type.name}()";
-    return ", factory: () => ${factory}";
-  }
-
   bool _isDartList(DartType type) =>
       type.element.library != null &&
           type.element.library.isDartCore &&
@@ -144,24 +128,6 @@ class DynamoMixinGenerator extends GeneratorForAnnotation<DynamoSerializable> {
       type.element.library != null &&
           type.element.library.isDartCore &&
           type.name == 'DateTime'; // TODO support list of datetime
-
-  bool _isDynamoSupported(DartType type)  {
-    print("_isDynamoSupported ${type}");
-
-    return  type.element.metadata.any((m) {
-      var annotationValueType = m.constantValue?.type;
-      if (annotationValueType != null) {
-        return matchAnnotation(DynamoSerializable, m);
-      }
-      var classMirror = reflectClass(DynamoSerializable);
-      var classMirrorSymbol = classMirror.simpleName;
-
-      var compilationUnitName = (m.element.enclosingElement as ClassElement).type.name;
-      var compilationUnitNameSymbol = new Symbol(compilationUnitName);
-
-      return classMirrorSymbol == compilationUnitNameSymbol;
-    });
-  }
 
   String _mixinDeclaration(String className, bool isRoot, String jsonMapVar, String encodingSupportVar, String decodingSupportVar,
       fieldsDeclarations, assignToJsonMap, assignFromJsonMap) {

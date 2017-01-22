@@ -11,9 +11,10 @@ import 'model/polymorphic_model.dart';
 void main() {
   group('serialize inheritance', () {
     Dynamo support = new Dynamo();
+    support.registerType("company", Company, () => new Company());
     support.registerType("employee", Employee, () => new Employee());
     support.registerType("manager", Manager, () => new Manager());
-    const json = '{"employees":[{"_isa_":"employee","name":"Tim","_id#_":1},{"_isa_":"employee","name":"Tom","_id#_":2},{"_isa_":"manager","name":"Bob","team":[{"_ref_":1},{"_ref_":2}]}]}';
+    const json = '{"_isa_":"company","employees":[{"_isa_":"employee","name":"Tim","_id#_":1},{"_isa_":"employee","name":"Tom","_id#_":2},{"_isa_":"manager","name":"Bob","team":[{"_ref_":1},{"_ref_":2}]}]}';
 
     test('encode', () {
       var e1 = new Employee()
@@ -31,7 +32,7 @@ void main() {
     });
 
     test('decode', () {
-      var company = support.fromJson(json, factory: () => new Company());
+      var company = support.fromJson(json);
 
       expect(company.employees.length, 3);
       var e1 = company.employees[0];
